@@ -1,2 +1,3 @@
 from .base import ModelBase
-from .user import User
+from .users import User
+from .posts import Post

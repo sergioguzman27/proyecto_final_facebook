@@ -2,3 +2,5 @@
 *.pyc
 
 .vscode/
+
+api_proyecto/facebook/migrations/

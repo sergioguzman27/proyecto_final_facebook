@@ -7,10 +7,11 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 # Views
-from facebook.views import UserViewSet
+from facebook.views import UserViewSet, PostViewSet
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
+router.register(r'posts', PostViewSet, basename='posts')
 
 urlpatterns = [
   path('', include(router.urls))
