@@ -77,6 +77,9 @@ TEMPLATES = [
     },
 ]
 
+# Configuracion del modelo User del admin
+AUTH_USER_MODEL = 'facebook.User'
+
 WSGI_APPLICATION = 'api_proyecto.wsgi.application'
 
 
@@ -112,6 +115,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Django Rest Framework configurations
+REST_FRAMEWORK = {
+    'DEFAULT_RENDER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer', 
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 
 # Internationalization
