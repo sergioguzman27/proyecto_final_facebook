@@ -2,18 +2,13 @@
 
 # Django rest framework
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
-from rest_framework.authtoken.models import Token
-
-# Django
-from django.contrib.auth import authenticate
-from django.core.validators import RegexValidator
 
 # Modelos
 from facebook.models import Post
 
 # Serializers
-from facebook.serializers import UserModelSerializer
+from facebook.serializers import (UserModelSerializer, CommentModelSerializer,
+                                  ReactionModelSerializer)
 
 class PostModelSerializer(serializers.ModelSerializer):
     
@@ -30,6 +25,26 @@ class PostModelSerializer(serializers.ModelSerializer):
             'modified'
         )
 
+class PostCompletSerializer(serializers.ModelSerializer):
+    user = UserModelSerializer(read_only=True)
+    
+    comments_post = CommentModelSerializer(many=True)
+    
+    reactions_post = ReactionModelSerializer(many=True, source='reaction_post')
+    
+    class Meta:
+        model = Post
+        fields = (
+            'id',
+            'title',
+            'description',
+            'user',
+            'created',
+            'modified',
+            'comments_post',
+            'reactions_post'
+        )
+
 class CreatePostSerializer(serializers.ModelSerializer):
     
     title = serializers.CharField(min_length=1, max_length=40)
@@ -38,6 +53,8 @@ class CreatePostSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(
         default=serializers.CurrentUserDefault()
     )
+    
+    
     
     class Meta:
         model = Post
