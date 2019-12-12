@@ -117,6 +117,8 @@ class HomeContainer extends Component {
       "description": this.inputDescription.value
     }
     this.crearPost(body);
+    this.inputTitle.value = '';
+    this.inputDescription.value = '';
   }
 
   handleClickComment = (id) => {

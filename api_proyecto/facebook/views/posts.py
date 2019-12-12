@@ -132,8 +132,10 @@ class PostViewSet(viewsets.ModelViewSet):
         )['total']       
         
         total_posts = posts.count()
-        comments = round((comments/total_posts),2)
-        reactions = round((reactions/total_posts),2)
+        
+        if total_posts > 0:
+            comments = round((comments/total_posts),2)
+            reactions = round((reactions/total_posts),2)
         
         data = {
             'comments': comments,

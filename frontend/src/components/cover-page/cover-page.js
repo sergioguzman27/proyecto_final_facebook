@@ -34,7 +34,7 @@ function CoverPage(props) {
           <div className="col emphasis">
             <h2><strong>{props.total_comments}</strong></h2>
             <p><small>Promedio de comentarios</small></p>
-            <button className="btn btn-info btn-block" onClick={props.handleClickDeteleProfile} >
+            <button className="btn btn-danger btn-block" onClick={props.handleClickDeteleProfile} >
               <span className="fa fa-minus-square-o"></span> Eliminar cuenta 
             </button>
           </div>

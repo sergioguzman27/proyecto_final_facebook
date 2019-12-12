@@ -28,7 +28,11 @@ class PostDetailConteiner extends Component {
 
 
   componentDidMount() {
-    this.obtenerPost(this.props.id);
+    if (localStorage.getItem('token') === null || localStorage.getItem('token') === 'null') {
+      this.props.history.replace('/login', {});
+    } else {
+      this.obtenerPost(this.props.id);
+    }
   }
 
   render() {

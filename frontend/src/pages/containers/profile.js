@@ -144,10 +144,15 @@ class ProfileContainer extends Component {
   }
 
   componentDidMount() {
-    const id = localStorage.getItem('id_user');
-    this.obtenerUsuario(id);
-    this.obtenerResumenPerfil();
-    this.obtenerPosts('posts/user/');
+
+    if (localStorage.getItem('token') === null || localStorage.getItem('token') === 'null') {
+      this.props.history.replace('/login', {});
+    } else {
+      const id = localStorage.getItem('id_user');
+      this.obtenerUsuario(id);
+      this.obtenerResumenPerfil();
+      this.obtenerPosts('posts/user/');
+    }
   }
 
   handleNext = () => {

@@ -11,7 +11,7 @@ class SignupContainer extends Component {
   }
 
   registrarUsuario(body) {
-    api.post('users/', body, true).then((res) => {
+    api.post('users/', body, false).then((res) => {
       Swal.fire({
         icon: 'success',
         title: 'Usuario creado',
