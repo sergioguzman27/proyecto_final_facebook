@@ -9,7 +9,8 @@ function CommentsLog(props) {
         <ul className="list-group my-4">
           {
             props.results.map((item) => {
-              return <Comment key={item.id} id={item.id} created={item.created} comment={item.comment}
+              let date = new Date(item.created);
+              return <Comment key={item.id} id={item.id} created={date.toDateString()} comment={item.comment}
                 comments_post={item.comments_post} first_name={item.user.first_name} last_name={item.user.last_name}
                 handleClickDelete={props.handleClickDelete} handleClickEdit={props.handleClickEdit}
                 edit_comment={props.edit_comment} edit_comment_id={props.edit_comment_id}

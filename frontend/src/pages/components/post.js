@@ -4,6 +4,7 @@ import ReactionsPost from '../../components/reactions/reactions';
 
 function PostDetail(props) {
   if (props.data) {
+    let date = new Date(props.data.created);
     return (
       <div className="container">
         <div className="card gedf-card mt-3">
@@ -21,7 +22,7 @@ function PostDetail(props) {
             </div>
           </div>
           <div className="card-body">
-            <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i> {props.data.created}</div>
+            <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i> {date.toDateString()}</div>
             <a className="card-link" href="#">
               <h5 className="card-title">{props.data.title}</h5>
             </a>
@@ -45,8 +46,9 @@ function PostDetail(props) {
                 {
                   props.navPost ?
                     props.data.comments_post.map((item) => {
+                      let date = new Date(item.created);
                       return <CommentPost key={item.id} first_name={item.user.first_name}
-                        last_name={item.user.last_name} comment={item.comment} date={item.created}
+                        last_name={item.user.last_name} comment={item.comment} date={date.toDateString()}
                         username={item.user.username} />
                     })
                     :
