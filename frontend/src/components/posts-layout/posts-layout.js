@@ -7,8 +7,9 @@ function PostsLayout(props) {
       {
         props.results &&
         props.results.map((item) => {
+          let date = new Date(item.created);
           return <Post key={item.id} title={item.title} description={item.description}
-            date={item.created} username={item.user.username} last_name={item.user.last_name}
+            date={date.toDateString()} username={item.user.username} last_name={item.user.last_name}
             first_name={item.user.first_name} id={item.id} comments={item.comments_post}
             likes={item.reactions_post} profile={props.profile} edit_post={props.edit_post}
             handleClickEditPost={props.handleClickEditPost} setRefTitle={props.setRefTitle}
