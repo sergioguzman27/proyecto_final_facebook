@@ -13,20 +13,28 @@ import reducer from '../../utils/reducers/index';
 import NotFound from '../components/not-found';
 import Header from '../../containers/header';
 import Login from '../containers/login';
-import Home from './home';
+import Profile from './profile';
 import Signup from './signup';
+import Home from './home';
+import Post from './post';
 
 const initialState = fromJS({
   user: {
-    username: '',
-    email: '',
+    id: null,
+    username: null,
+    email: null,
+    first_name: null,
+    last_name: null,
+    phone_number: null,
     token: null
   },
   posts: {
     previous: null,
     next: null,
-    results: []
-  }
+    results: [],
+    count: null
+  },
+  post: {}
 })
 
 const store = createStore(
@@ -45,6 +53,8 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/post/:id" component={Post} />
             <Route component={NotFound} />
           </Switch>
         </Fragment>

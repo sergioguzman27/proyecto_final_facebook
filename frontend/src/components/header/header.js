@@ -15,8 +15,13 @@ function Header(props) {
                 </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/ver-usuarios" activeClassName="is-selected">
+              <NavLink className="nav-link" to="/profile" activeClassName="is-selected">
                 Perfil
+                </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/ver-usuarios" activeClassName="is-selected">
+                Ver usuarios
                 </NavLink>
             </li>
           </ul>

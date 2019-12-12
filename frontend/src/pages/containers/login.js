@@ -17,10 +17,12 @@ class LoginContainer extends Component {
       const resp = {
         username: res.user.username,
         email: res.user.email,
-        token: res.access_token
+        token: res.access_token,
+        id: res.user.id
       }
       localStorage.setItem('token', resp.token);
       localStorage.setItem('username', resp.username);
+      localStorage.setItem('id_user', resp.id);
       this.props.actions.login(resp)
       Swal.fire({
         icon: 'success',
@@ -28,7 +30,6 @@ class LoginContainer extends Component {
       })
       this.props.history.replace('/', resp);
     }).catch((error) => {
-      console.error(error);
       let mensaje = '';
       if(error.menssage_error){
         mensaje = error.menssage_error; 

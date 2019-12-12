@@ -10,8 +10,11 @@ function Home(props) {
 				<NewPost setRefTitle={props.setRefTitle} setRefDescription={props.setRefDescription}
 				handleClickPost={props.handleClickPost}/>
 			</div>
-			<Posts results={props.results} previous={props.previous} next={props.next}
-			handleNext={props.handleNext} handlePrevious={props.handlePrevious}/>
+			<Posts edit_post={false} results={props.results} previous={props.previous} next={props.next}
+			handleNext={props.handleNext} handlePrevious={props.handlePrevious} profile={false}
+			setRefComment={props.setRefComment} handleClickComment={props.handleClickComment}
+			handleInputsChange={props.handleInputsChange} user_session={props.username} 
+			handleLike={props.handleLike} handleDisLike={props.handleDisLike}/>
 		</div>
 	)
 }

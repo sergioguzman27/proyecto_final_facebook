@@ -1,9 +1,18 @@
 import React from 'react';
+import EditPost from '../edit-post/edit-post';
 import NewComment from '../new-comment/comment';
 import './post.css';
 
-function Post(props) {
+function encontrar(array, username) {
+  for (const item of array) {
+    if (item.user.username === username) return item
+  }
+  return null;
+}
 
+function Post(props) {
+  // let item = null;
+  let item = encontrar(props.reactions_post, props.user_session);
   let comments = props.comments.length;
   let likes = props.likes.filter((item) => {
     return item.like
@@ -26,16 +35,19 @@ function Post(props) {
             </div>
           </div>
           <div>
-            <div className="dropdown">
-              <button className="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i className="fa fa-ellipsis-h"></i>
-              </button>
-              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                <div className="h6 dropdown-header">Opciones</div>
-                <a className="dropdown-item" href="#">Editar</a>
+            {
+              props.profile &&
+              <div className="dropdown">
+                <button className="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i className="fa fa-ellipsis-h"></i>
+                </button>
+                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                  <div className="h6 dropdown-header">Opciones</div>
+                  <a className="dropdown-item" onClick={(event) => { props.handleClickEditPost(props.id) }}>Editar</a>
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>
@@ -46,19 +58,49 @@ function Post(props) {
         </a>
         <p className="card-text text-justify">{props.description}</p>
       </div>
-      <div className="card-footer">
-        <div>
-          <a href="#" className="card-link"><i className="fa fa-thumbs-o-up"></i> Me gusta</a>
-          <a href="#" className="card-link"><i className="fa fa-thumbs-o-down"></i> No me gusta</a>
-          <a href="#" className="card-link"><i className="fa fa-comment"></i> Comentar</a>
-          <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
-          <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
-          <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>
-        </div>
-        <div>
-          <NewComment />
-        </div>
-      </div>
+      {
+        !props.profile ?
+          <div className="card-footer">
+            {
+              item != null ?
+                <div>
+                  <a href="#" onClick={(event) => {props.handleLike(item.like, props.id)}}
+                  className={item.like ? 'card-link2' : 'card-link1'}><i className="fa fa-thumbs-o-up"></i> Me gusta</a>
+                  <a href="#" onClick={(event) => {props.handleDisLike(!item.like, props.id)}}
+                  className={item.like ? 'card-link1' : 'card-link2'}><i className="fa fa-thumbs-o-down"></i> No me gusta</a>
+                  <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
+                  <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
+                  <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>
+                </div>
+                :
+                <div>
+                  <a href="#" onClick={(event) => {props.handleLike(false, props.id)}}
+                  className="card-link1"><i className="fa fa-thumbs-o-up"></i>  Me gusta</a>
+                  <a href="#" onClick={(event) => {props.handleDisLike(false, props.id)}}
+                  className="card-link1"><i className="fa fa-thumbs-o-down"></i>  No me gusta</a>
+                  <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
+                  <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
+                  <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>
+                </div>
+            }
+
+            <div>
+              <NewComment setRefComment={props.setRefComment} handleClickComment={props.handleClickComment}
+                id={props.id} handleInputsChange={props.handleInputsChange} />
+            </div>
+          </div>
+          :
+          <div className="card-footer">
+            <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
+            <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
+            <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>
+            {
+              props.edit_post && props.edit_post_id == props.id &&
+              <EditPost setRefTitle={props.setRefTitle} setRefDescription={props.setRefDescription}
+                handleSubmitEditPost={props.handleSubmitEditPost} id={props.id} />
+            }
+          </div>
+      }
     </div>
   )
 }

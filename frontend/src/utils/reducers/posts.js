@@ -5,7 +5,8 @@ const initialState = fromJS({
   posts: {
     previous: null,
     next: null,
-    results: []
+    results: [],
+    count: null,
   }
 })
 
@@ -15,7 +16,8 @@ function posts(state = initialState, action) {
       return state.merge({
         previous: action.payload.data.previous,
         next: action.payload.data.next,
-        results: action.payload.data.results
+        results: action.payload.data.results,
+        count: action.payload.data.count
       });
     default:
       return state;

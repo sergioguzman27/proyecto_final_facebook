@@ -7,20 +7,17 @@ class SignupContainer extends Component {
 
   handleSignup = () => {
     event.preventDefault();
-    console.log('Signup');
     this.registrarUsuario(this.state);
   }
 
   registrarUsuario(body) {
     api.post('users/', body, true).then((res) => {
-      console.log(res);
       Swal.fire({
         icon: 'success',
         title: 'Usuario creado',
       })
       this.props.history.replace('/login', {});
     }).catch((error) => {
-      console.error(error);
       let mensaje='';
       if(error.menssage_error){
         mensaje = error.menssage_error; 
