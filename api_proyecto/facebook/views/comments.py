@@ -59,3 +59,15 @@ class CommentViewSet(viewsets.ModelViewSet):
         comment = serializer.save()
         data = CommentModelSerializer(comment).data
         return Response(data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['get'])
+    def user(self, request, *args, **kwargs):
+        """ Vista para obtener todos los comentarios que ha hecho un usuario """
+        query = Comment.objects.filter(user=request.user)
+        page = self.paginate_queryset(query)
+        if page is not None:
+            serializer = CommentModelSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = CommentModelSerializer(query, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
