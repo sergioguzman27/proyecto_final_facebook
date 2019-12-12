@@ -4,3 +4,5 @@
 .vscode/
 
 api_proyecto/facebook/migrations/
+
+/frontend/node_modules
