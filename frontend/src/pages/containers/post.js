@@ -8,7 +8,7 @@ import Post from '../components/post';
 class PostDetailConteiner extends Component {
 
   state = {
-    comments: false
+    comments: true
   }
 
   obtenerPost(id) {

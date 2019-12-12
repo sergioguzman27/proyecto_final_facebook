@@ -45,6 +45,28 @@ class ProfileContainer extends Component {
     });
   }
 
+  eliminarUsuario(id) {
+    api.eliminar(`users/${id}/`, true).then((res) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Te has salido de Facebook :(',
+      })
+      this.props.history.replace('/login', {});
+    }).catch((error) => {
+      let mensaje = '';
+      if (error.menssage_error) {
+        mensaje = error.menssage_error;
+      } else {
+        mensaje = error[Object.keys(error)[0]][0]
+      }
+      Swal.fire(
+        'Error',
+        mensaje,
+        'error'
+      )
+    });
+  }
+
   editarPerfil(body, id) {
     api.put(`users/${id}/`, body, true).then((res) => {
       Swal.fire({
@@ -98,6 +120,29 @@ class ProfileContainer extends Component {
     });
   }
 
+  eliminarPost(id) {
+    api.eliminar(`posts/${id}/`, true).then((res) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se ha editado el post',
+      })
+      this.obtenerPosts('posts/user/');
+    }).catch((error) => {
+      // console.error(error);
+      let mensaje = '';
+      if (error.menssage_error) {
+        mensaje = error.menssage_error;
+      } else {
+        mensaje = error[Object.keys(error)[0]][0]
+      }
+      Swal.fire(
+        'Error',
+        mensaje,
+        'error'
+      )
+    });
+  }
+
   componentDidMount() {
     const id = localStorage.getItem('id_user');
     this.obtenerUsuario(id);
@@ -120,6 +165,24 @@ class ProfileContainer extends Component {
       edit: true
     });
     // Falta colocar los datos iniciales
+  }
+
+  handleClickDeteleProfile = () => {
+    const id = localStorage.getItem('id_user');
+    Swal.fire({
+      title: 'Estas seguro que quieres eliminar tu cuenta?',
+      text: "No hay vuelta atras!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.value) {
+        this.eliminarUsuario(id);
+      }
+    })
   }
 
   handleClickEditPost = (id) => {
@@ -155,6 +218,23 @@ class ProfileContainer extends Component {
       description: this.inputDescription.value
     }
     this.editarPost(body, id);
+  }
+
+  handleClickDeletePost = (id) => {
+    console.log('post ', id)
+    Swal.fire({
+      title: 'Estas seguro que quieres eliminar esta publicacion?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.value) {
+        this.eliminarPost(id);
+      }
+    })
   }
 
   // Inputs para editar el perfil
@@ -194,7 +274,8 @@ class ProfileContainer extends Component {
         setRefPhoneNumber={this.setRefPhoneNumber} handleSubmitEdit={this.handleSubmitEditProfile}
         edit_post={this.state.edit_post} handleClickEditPost={this.handleClickEditPost}
         setRefTitle={this.setRefTitle} setRefDescription={this.setRefDescription}
-        handleSubmitEditPost={this.handleSubmitEditPost} edit_post_id={this.state.edit_post_id} />
+        handleSubmitEditPost={this.handleSubmitEditPost} edit_post_id={this.state.edit_post_id}
+        handleClickDeletePost={this.handleClickDeletePost} handleClickDeteleProfile={this.handleClickDeteleProfile} />
     )
   }
 }

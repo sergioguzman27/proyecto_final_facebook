@@ -20,7 +20,7 @@ function Header(props) {
                 </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/ver-usuarios" activeClassName="is-selected">
+              <NavLink className="nav-link" to="/users" activeClassName="is-selected">
                 Ver usuarios
                 </NavLink>
             </li>
