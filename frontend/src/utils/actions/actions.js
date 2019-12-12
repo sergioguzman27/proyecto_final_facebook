@@ -1,5 +1,6 @@
 // import { LOGIN } from './actions-types';
-import { LOGIN, GET_POSTS, GET_USER, GET_REPORT, GET_POST } from '../actions/action-types';
+import { LOGIN, GET_POSTS, GET_USER, GET_REPORT,
+	GET_POST, GET_COMMENTS, GET_USERS } from '../actions/action-types';
 
 export function login(user) {
 	return {
@@ -39,9 +40,27 @@ export function get_user(data) {
 	}
 }
 
+export function get_users(data) {
+	return {
+		type: GET_USERS,
+		payload: {
+			data
+		}
+	}
+}
+
 export function get_report(data) {
 	return {
 		type: GET_REPORT,
+		payload: {
+			data
+		}
+	}
+}
+
+export function get_comments(data) {
+	return {
+		type: GET_COMMENTS,
 		payload: {
 			data
 		}

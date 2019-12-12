@@ -1,6 +1,7 @@
 import React from 'react';
 import EditPost from '../edit-post/edit-post';
 import NewComment from '../new-comment/comment';
+import { Link } from 'react-router-dom';
 import './post.css';
 
 function encontrar(array, username) {
@@ -45,6 +46,7 @@ function Post(props) {
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                   <div className="h6 dropdown-header">Opciones</div>
                   <a className="dropdown-item" onClick={(event) => { props.handleClickEditPost(props.id) }}>Editar</a>
+                  <a className="dropdown-item" onClick={(event) => { props.handleClickDeletePost(props.id) }}>Eliminar</a>
                 </div>
               </div>
             }
@@ -53,9 +55,9 @@ function Post(props) {
       </div>
       <div className="card-body">
         <div className="text-muted h7 mb-2"> <i className="fa fa-clock-o"></i> {props.date}</div>
-        <a className="card-link" href="#">
+        <Link to={`/post/${props.id}`} className="card-link">
           <h5 className="card-title">{props.title}</h5>
-        </a>
+        </Link>
         <p className="card-text text-justify">{props.description}</p>
       </div>
       {
@@ -64,20 +66,20 @@ function Post(props) {
             {
               item != null ?
                 <div>
-                  <a href="#" onClick={(event) => {props.handleLike(item.like, props.id)}}
-                  className={item.like ? 'card-link2' : 'card-link1'}><i className="fa fa-thumbs-o-up"></i> Me gusta</a>
-                  <a href="#" onClick={(event) => {props.handleDisLike(!item.like, props.id)}}
-                  className={item.like ? 'card-link1' : 'card-link2'}><i className="fa fa-thumbs-o-down"></i> No me gusta</a>
+                  <a href="#" onClick={(event) => { props.handleLike(item.like, props.id) }}
+                    className={item.like ? 'card-link2' : 'card-link1'}><i className="fa fa-thumbs-o-up"></i> Me gusta</a>
+                  <a href="#" onClick={(event) => { props.handleDisLike(!item.like, props.id) }}
+                    className={item.like ? 'card-link1' : 'card-link2'}><i className="fa fa-thumbs-o-down"></i> No me gusta</a>
                   <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
                   <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
                   <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>
                 </div>
                 :
                 <div>
-                  <a href="#" onClick={(event) => {props.handleLike(false, props.id)}}
-                  className="card-link1"><i className="fa fa-thumbs-o-up"></i>  Me gusta</a>
-                  <a href="#" onClick={(event) => {props.handleDisLike(false, props.id)}}
-                  className="card-link1"><i className="fa fa-thumbs-o-down"></i>  No me gusta</a>
+                  <a href="#" onClick={(event) => { props.handleLike(false, props.id) }}
+                    className="card-link1"><i className="fa fa-thumbs-o-up"></i>  Me gusta</a>
+                  <a href="#" onClick={(event) => { props.handleDisLike(false, props.id) }}
+                    className="card-link1"><i className="fa fa-thumbs-o-down"></i>  No me gusta</a>
                   <p className="float-right ml-3"><i className="fa fa-thumbs-o-up"></i> {likes}</p>
                   <p className="float-right ml-3"><i className="fa fa-thumbs-o-down"></i> {dislikes}</p>
                   <p className="float-right ml-3"><i className="fa fa-comment"></i> {comments}</p>

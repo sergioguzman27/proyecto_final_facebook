@@ -117,6 +117,8 @@ class HomeContainer extends Component {
       "description": this.inputDescription.value
     }
     this.crearPost(body);
+    this.inputTitle.value = '';
+    this.inputDescription.value = '';
   }
 
   handleClickComment = (id) => {
@@ -129,7 +131,7 @@ class HomeContainer extends Component {
     }
     console.log(body);
     this.crearComentario(body);
-    this.inputComment.value = '';
+    // this.inputComment.value = '';
   }
 
   handleLike = (activo, id) => {

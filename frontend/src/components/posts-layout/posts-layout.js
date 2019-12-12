@@ -16,7 +16,8 @@ function PostsLayout(props) {
             edit_post_id={props.edit_post_id} setRefComment={props.setRefComment} 
             handleClickComment={props.handleClickComment} handleInputsChange={props.handleInputsChange} 
             reactions_post={item.reactions_post} user_session={props.user_session}
-            handleLike={props.handleLike} handleDisLike={props.handleDisLike}/>
+            handleLike={props.handleLike} handleDisLike={props.handleDisLike}
+            handleClickDeletePost={props.handleClickDeletePost}/>
         })
       }
       {

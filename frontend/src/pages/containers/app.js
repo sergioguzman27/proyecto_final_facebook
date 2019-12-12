@@ -13,8 +13,10 @@ import reducer from '../../utils/reducers/index';
 import NotFound from '../components/not-found';
 import Header from '../../containers/header';
 import Login from '../containers/login';
+import Comments from './comments-log';
 import Profile from './profile';
 import Signup from './signup';
+import Users from './users';
 import Home from './home';
 import Post from './post';
 
@@ -54,6 +56,8 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/comments" component={Comments} />
+            <Route exact path="/users" component={Users} />
             <Route exact path="/post/:id" component={Post} />
             <Route component={NotFound} />
           </Switch>

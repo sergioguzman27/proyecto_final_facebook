@@ -6,6 +6,16 @@ import { withRouter } from 'react-router';
 
 class HeaderContainer extends Component {
 
+  state = {
+    token: localStorage.getItem('token')
+  }
+
+  componentDidMount() {
+    this.setState({
+      token: localStorage.getItem('token')
+    })
+  }
+
   logout() {
     api.post('users/logout/', null, true).then((res) => {
       localStorage.setItem('token', null);
@@ -38,7 +48,7 @@ class HeaderContainer extends Component {
 
   render() {
     return (
-      <Header handleLogout={this.handleLogout} />
+      <Header handleLogout={this.handleLogout} token={this.state.token} />
     )
   }
 }

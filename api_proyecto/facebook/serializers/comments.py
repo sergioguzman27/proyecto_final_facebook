@@ -12,10 +12,12 @@ from facebook.serializers import UserModelSerializer
 class CommentModelSerializer(serializers.ModelSerializer):
     
     user = UserModelSerializer(read_only=True)
+    
+    comments_post = serializers.StringRelatedField()
 
     class Meta:
         model = Comment
-        fields = ('id', 'comment','user', 'created', 'modified',)
+        fields = ('id', 'comment','user', 'created', 'modified','comments_post')
         
 class CreateCommentSerializer(serializers.ModelSerializer):
     
