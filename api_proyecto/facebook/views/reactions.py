@@ -68,4 +68,16 @@ class ReactionViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_404_NOT_FOUND)
         reaction.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    @action(detail=False, methods=['get'])
+    def user(self, request, *args, **kwargs):
+        """ Vista para obtener todos los comentarios que ha hecho un usuario """
+        query = Reaction.objects.filter(user=request.user)
+        page = self.paginate_queryset(query)
+        if page is not None:
+            serializer = ReactionModelSerializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = ReactionModelSerializer(query, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
         
