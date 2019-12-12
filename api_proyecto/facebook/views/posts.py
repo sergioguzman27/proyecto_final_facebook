@@ -95,13 +95,22 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer = serializer_class(query, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-    @action(detail=True, methods=['get'])
+    @action(detail=False, methods=['get'])
     def summary(self, request, *args, **kwargs):
-        """ Vista para obtener el resumen de comentarios y reacciones por publicacion """
-        post = self.get_object()
-        comments = post.comments_post.count()
-        reactions = post.reaction_post.count()
+        """ Vista para obtener el resumen de comentarios y reacciones de los posts de un usuario"""
+        posts = Post.objects.filter(user=request.user)
+        comments = posts.aggregate(
+            total = Count('comments_post'),
+        )['total']
+        
+        reactions = posts.aggregate(
+            total = Count('reaction_post'),
+        )['total']
+        
+        total_posts = posts.count()
+
         data = {
+            'posts': total_posts,
             'comments': comments,
             'reactions': reactions
         }
