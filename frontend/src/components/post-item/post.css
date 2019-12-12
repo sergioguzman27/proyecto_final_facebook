@@ -1,0 +1,33 @@
+.h7 {
+  font-size: 0.8rem;
+}
+
+.gedf-wrapper {
+  margin-top: 0.97rem;
+}
+
+@media (min-width: 992px) {
+  .gedf-main {
+      padding-left: 4rem;
+      padding-right: 4rem;
+  }
+  .gedf-card {
+      margin-bottom: 2.77rem;
+  }
+}
+
+/**Reset Bootstrap*/
+.dropdown-toggle::after {
+  content: none;
+  display: none;
+}
+
+.card-link1:link, .card-link1:visited, .card-link1:hover, .card-link1:active{
+  margin-right: 20px !important; 
+  color: black !important;
+}
+
+.card-link2:link, .card-link2:visited, .card-link2:hover, .card-link2:active {
+  margin-right: 20px !important;
+  color: #3b5998;
+}
