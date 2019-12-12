@@ -4,6 +4,7 @@
 from rest_framework import status, viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.generics import get_object_or_404
 
 # Permisos
 from rest_framework.permissions import IsAuthenticated
@@ -28,7 +29,7 @@ class ReactionViewSet(viewsets.ModelViewSet):
     
     def get_permissions(self):
         permissions = [IsAuthenticated]
-        if (self.action in ['update', 'partial_update', 'destroy']):
+        if (self.action in ['update', 'partial_update', 'destroy', 'remove_action']):
             permissions.append(IsPostOwner)
         return [p() for p in permissions]
     
@@ -56,3 +57,15 @@ class ReactionViewSet(viewsets.ModelViewSet):
         reaction = serializer.save()
         data = ReactionModelSerializer(reaction).data
         return Response(data, status=status.HTTP_200_OK)
+    
+    @action(detail=False, methods=['post'])
+    def remove_action(self, request, *args, **kwargs):
+        # data = request.data;
+        # print(data)
+        try:
+            reaction = Reaction.objects.get(user=request.user, post=request.data['post_id'])
+        except Reaction.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        reaction.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
